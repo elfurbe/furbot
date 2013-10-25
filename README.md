@@ -8,6 +8,6 @@ bot, this is a basic implementation. As of right now it requires a
 bunch of plugins you'll have to install by hand. I'm working on
 that.
 
-furbot.rb - The actual bot implementation.
-furbot_config.rb.DIST - An example config file
-furbot_control.rb - Simple ruby daemon controller to launch furbot
+* furbot.rb - The actual bot implementation
+* furbot_config.rb.DIST - An example config file
+* furbot_control.rb - Simple ruby daemon controller to launch furbot
