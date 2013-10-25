@@ -8,23 +8,24 @@ require 'cinch-weatherman'
 require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/link_scraper.rb'
 require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/google.rb'
 require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/s.rb'
+require '/path/to/furbot_config.rb'
 
 bot = Cinch::Bot.new do
     configure do |c|
-        c.server = "<server>"
-        c.password = "<server password>"
-        c.port = <server port>
-        c.ssl.use = <true|false>
-        c.channels = ["#channel1","#channel2"]
-        c.nick = "furbot"
-        c.user = "furbot"
-        c.realname = "furbot"
-        c.delay_joins = :identified
-        c.plugins.prefix = "."
-        c.plugins.plugins = [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google]
+        c.server = Furbot::Config::HOST[:server]
+        c.password = Furbot::Config::HOST[:password]
+        c.port = Furbot::Config::HOST[:port]
+        c.ssl.use = Furbot::Config::HOST[:ssl]
+        c.channels = Furbot::Config::HOST[:channels]
+        c.nick = Furbot::Config::BOT[:nick]
+        c.user = Furbot::Config::BOT[:user]
+        c.realname = Furbot::Config::BOT[:realname]
+        c.delay_joins = Furbot::Config::OPTIONS[:delay_joins]
+        c.plugins.prefix = Furbot::Config::PLUGINS[:prefix]
+        c.plugins.plugins = Furbot::Config::PLUGINS[:plugins]
         c.plugins.options[Cinch::Plugins::Identify] = {
-            :password   => "<nickserv password for bot>",
-            :type       => :nickserv,
+            :password   => Furbot::Config::BOT[:password],
+            :type       => Furbot::Config::IDENTIFYOPTS[:type],
         }
 
     end
