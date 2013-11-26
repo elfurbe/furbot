@@ -5,10 +5,10 @@ require 'cinch/plugins/urlscraper'
 require 'cinch-calculate'
 require 'cinch/plugins/downforeveryone'
 require 'cinch-weatherman'
-require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/link_scraper.rb'
-require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/google.rb'
-require '/usr/local/lib/site_ruby/1.9.1/x86_64-linux/snap/lib/cinch/plugins/s.rb'
-require '/path/to/furbot_config.rb'
+require_relative 'plugins/link_scraper.rb'
+require_relative 'plugins/google.rb'
+require_relative 'plugins/s.rb'
+require_relative 'furbot_config.rb'
 
 bot = Cinch::Bot.new do
     configure do |c|
