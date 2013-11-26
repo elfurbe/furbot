@@ -11,3 +11,8 @@ that.
 * furbot.rb - The actual bot implementation
 * furbot_config.rb.DIST - An example config file
 * furbot_control.rb - Simple ruby daemon controller to launch furbot
+* plugins - local plugins that aren't gems
+
+
+I stole plugins from davidcelis' snap bot cause they already worked. Check out snap:
+https://github.com/davidcelis/snap

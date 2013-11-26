@@ -10,7 +10,8 @@ module Cinch
 
       USAGE = "Do you feel lucky, punk? Example: !google how to make friends"
 
-      match /google (.+)/
+      match(/google (.+)/, method: :google)
+      match(/g (.+)/, method: :google)
 
       def search(query)
         begin
@@ -34,7 +35,7 @@ module Cinch
       # <davidcelis> !google ruby yard guide
       # <snap> YARD - Guide: Writing a Handler for Custom Ruby Syntax (DSL) -
       # yardoc.org/guides/extending-yard/writing-handlers.html
-      def execute(m, query)
+      def google(m, query)
         m.reply(search(query))
       end
     end
