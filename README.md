@@ -14,5 +14,9 @@ that.
 * plugins - local plugins that aren't gems
 
 
-I stole plugins from davidcelis' snap bot cause they already worked. Check out snap:
-https://github.com/davidcelis/snap
+I used several plugins from some other sources cause they already
+worked. Check out:
+
+snap: https://github.com/davidcelis/snap
+Porygon: https://github.com/killwhitey/Porygon
+Canonical Hackers: https://github.com/canonical-hackers
