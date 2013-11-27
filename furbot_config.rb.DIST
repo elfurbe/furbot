@@ -8,6 +8,7 @@ require 'cinch-weatherman'
 require_relative 'plugins/link_scraper.rb'
 require_relative 'plugins/google.rb'
 require_relative 'plugins/s.rb'
+require_relative 'plugins/wolfram.rb'
 
 module Furbot
     module Config
@@ -16,5 +17,6 @@ module Furbot
         OPTIONS = { :delay_joins => :identified }
         PLUGINS = { :prefix => '.', :plugins => [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google] }
         IDENTIFYOPTS = { :type => :nickserv }
+        GLOBAL_VARS = { :wolframapi => 'XXXXXX-XXXXXXXXXX' }
     end
 end
