@@ -39,7 +39,7 @@ module Cinch
                  "#{m.channel}:#{m.user.nick}:messages"
                end
 
-        history = @bot.redis.lrange(list, 0, 100).map { |msg| JSON.parse msg }
+        history = bot.redis.lrange(list, 0, 100).map { |msg| JSON.parse msg }
         found = history.select { |msg| msg['message'] =~ regex }.first
 
         message = found['message'].gsub(regex, replacement)

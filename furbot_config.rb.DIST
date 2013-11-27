@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'redis'
 require 'cinch'
 require 'cinch/plugins/identify'
 require 'cinch/plugins/urlscraper'
@@ -18,5 +19,6 @@ module Furbot
         PLUGINS = { :prefix => '.', :plugins => [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google] }
         IDENTIFYOPTS = { :type => :nickserv }
         GLOBAL_VARS = { :wolframapi => 'XXXXXX-XXXXXXXXXX' }
+        MSGHISTOPTS = { :user_messages => 10, :channel_messages => 25 }
     end
 end

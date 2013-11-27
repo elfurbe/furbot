@@ -18,8 +18,15 @@ bot = Cinch::Bot.new do
             :password   => Furbot::Config::BOT[:password],
             :type       => Furbot::Config::IDENTIFYOPTS[:type],
         }
+        c.plugins.options[Cinch::Plugins::MessageHistory] = {
+            :user_messages => Furbot::Config::MSGHISTOPTS[:user_messages],
+            :channel_messages => Furbot::Config::MSGHISTOPTS[:channel_messages]
+        }
 
     end
+
+    @@redis = Redis.new(:host => "127.0.0.1", :port => 6379)
+    def self.redis(); @@redis; end
 
     on :message, "woo woo woo" do |m|
         m.reply "#{m.user.nick}: you know it"
