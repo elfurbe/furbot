@@ -1,13 +1,4 @@
 # encoding: UTF-8
-require 'cinch'
-require 'cinch/plugins/identify'
-require 'cinch/plugins/urlscraper'
-require 'cinch-calculate'
-require 'cinch/plugins/downforeveryone'
-require 'cinch-weatherman'
-require_relative 'plugins/link_scraper.rb'
-require_relative 'plugins/google.rb'
-require_relative 'plugins/s.rb'
 require_relative 'furbot_config.rb'
 
 bot = Cinch::Bot.new do
