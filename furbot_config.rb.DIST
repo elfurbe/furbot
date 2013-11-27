@@ -10,13 +10,14 @@ require_relative 'plugins/link_scraper.rb'
 require_relative 'plugins/google.rb'
 require_relative 'plugins/s.rb'
 require_relative 'plugins/wolfram.rb'
+require_relative 'plugins/message_history.rb'
 
 module Furbot
     module Config
         HOST = { :server => '<server>', :password => '<serverpassword>', :port => <serverport>, :ssl => <true|false>, :channels => ["#channel1","#channel2"] }
         BOT = { :nick => 'furbot', :user => 'furbot', :realname => 'furbot', :password => '<bot nickserv pass>' }
         OPTIONS = { :delay_joins => :identified }
-        PLUGINS = { :prefix => '.', :plugins => [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google] }
+        PLUGINS = { :prefix => '.', :plugins => [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google,Cinch::Plugins::Wolfram,Cinch::Plugins::MessageHistory,Cinch::Plugins::S] }
         IDENTIFYOPTS = { :type => :nickserv }
         GLOBAL_VARS = { :wolframapi => 'XXXXXX-XXXXXXXXXX' }
         MSGHISTOPTS = { :user_messages => 10, :channel_messages => 25 }
