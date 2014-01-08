@@ -2,4 +2,9 @@
 require 'rubygems'
 require 'daemons'
 
-Daemons.run('furbot.rb')
+options = {
+    :backtrace => true,
+    :log_output => true,
+    :monitor => true
+}
+Daemons.run('furbot.rb',options)
