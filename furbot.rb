@@ -37,6 +37,9 @@ bot = Cinch::Bot.new do
     on :message, /.*(^|[\s\t\r\n\f])(angry|mad)([\s\t\r\n\f]|$).*/i do |m|
         m.reply "#{m.user.nick}: (╯°□°）╯︵ ┻━┻"
     end
+    on :message, /(syn)$/i do |m|
+        m.reply "ACK"
+    end
 end
 
 bot.start
