@@ -37,8 +37,14 @@ bot = Cinch::Bot.new do
     on :message, /.*(^|[\s\t\r\n\f])(angry|mad)([\s\t\r\n\f]|$).*/i do |m|
         m.reply "#{m.user.nick}: (╯°□°）╯︵ ┻━┻"
     end
-    on :message, /(syn)$/i do |m|
-        m.reply "ACK"
+    on :message, /^(syn)$/i do |m|
+        m.reply "SYN-ACK"
+    end
+    on :message, /^(ack)$/i do |m|
+        history = bot.redis.lrange("#{m.channel}:#{m.user.nick}:messages", 1, 1).map { |msg| JSON.parse msg }
+        if history.first['message'].casecmp("syn") == 0
+            m.reply "ESTABLISHED"
+        end
     end
 end
 
