@@ -25,8 +25,8 @@ bot = Cinch::Bot.new do
 
     end
 
-    @@redis = Redis.new(:host => "127.0.0.1", :port => 6379)
-    def self.redis(); @@redis; end
+    @redis = Redis.new(:host => "127.0.0.1", :port => 6379)
+    def self.redis(); @redis; end
 
     on :message, "woo woo woo" do |m|
         m.reply "#{m.user.nick}: you know it"
