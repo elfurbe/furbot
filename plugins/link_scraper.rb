@@ -57,9 +57,9 @@ module Cinch
 
             title = page.at('title').content.strip.gsub("- YouTube", '').strip
             length = page.at("meta[itemprop='duration']")[:content].gsub("PT",'').gsub("M",":").gsub("S",'')
-            hits = page.at("span[class='watch-view-count ']").content.strip
-            likes = page.at("span[class='likes-count']").content
-            dislikes = page.at("span[class='dislikes-count']").content
+            hits = page.at(".watch-view-count").content.strip
+            likes = page.at(".likes-count").content
+            dislikes = page.at(".dislikes-count").content
 
             m.reply "#{prefix} #{title} length: #{length} (#{hits} views, #{likes} likes, #{dislikes} dislikes)"
           when 'gist.github.com'
