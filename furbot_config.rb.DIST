@@ -19,7 +19,14 @@ module Furbot
         OPTIONS = { :delay_joins => :identified }
         PLUGINS = { :prefix => '.', :plugins => [Cinch::Plugins::Identify,Cinch::Plugins::LinkScraper,Cinch::Plugins::Calculate,Cinch::Plugins::DownForEveryone,Cinch::Plugins::Weatherman,Cinch::Plugins::Google,Cinch::Plugins::Wolfram,Cinch::Plugins::MessageHistory,Cinch::Plugins::S] }
         IDENTIFYOPTS = { :type => :nickserv }
-        GLOBAL_VARS = { :wolframapi => 'XXXXXX-XXXXXXXXXX' }
+        GLOBAL_VARS = {
+            :wolframapi => 'XXXXXX-XXXXXXXXXX'
+            :twitter_consumer_key => 'XXXXXXXXXXXXXXXXXXXXX',
+            :twitter_consumer_secret => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            :amzn_secret => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            :amzn_key => 'XXXXXXXXXXXXXXXXXXXX',
+            :amzn_associate_tag => 'XXXXXXXXXXXXXXXX'
+        }
         MSGHISTOPTS = { :user_messages => 10, :channel_messages => 25 }
     end
 end

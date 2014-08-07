@@ -3,6 +3,8 @@ require 'fastimage'
 require 'json'
 require 'cgi'
 require 'nokogiri'
+require 'twitter'
+require 'asin'
 
 module Cinch
   module Plugins
@@ -15,6 +17,32 @@ module Cinch
         @agent = Mechanize.new
         @agent.user_agent_alias = 'Mac Safari'
         @agent.max_history = 0
+      end
+      def time_ago_in_words(t1, t2)
+        s = t1.to_i - t2.to_i # distance between t1 and t2 in seconds
+
+        resolution = if s > 29030400 # seconds in a year
+          [(s/29030400), 'years'] 
+        elsif s > 2419200
+          [(s/2419200), 'months']
+        elsif s > 604800
+          [(s/604800), 'weeks']
+        elsif s > 86400
+          [(s/86400), 'days']
+        elsif s > 3600 # seconds in an hour
+          [(s/3600), 'hours'] 
+        elsif s > 60
+          [(s/60), 'minutes']
+        else
+          [s, 'seconds']
+        end
+
+        # singular v. plural resolution
+        if resolution[0] == 1
+          resolution.join(' ')[0...-1]
+        else
+          resolution.join(' ')
+        end
       end
 
       listen_to :channel
@@ -68,18 +96,36 @@ module Cinch
 
             m.reply "#{title} (posted by #{owner}, last updated on #{time})"
           when 'twitter.com'
-            if link =~ /\/([^\/]+)\/status(?:es)\/(\d+)$/
+            if link =~ /\/([^\/]+)\/status\/(\d+)$/
+              client = Twitter::REST::Client.new do |config|
+                config.consumer_key     = "#{Furbot::Config::GLOBAL_VARS[:twitter_consumer_key]}"
+                config.consumer_secret  = "#{Furbot::Config::GLOBAL_VARS[:twitter_consumer_secret]}"
+              end
               user = $1
-              json      = @agent.get("https://api.twitter.com/1/statuses/show/#{$2}.json?trim_user=1").body
-              tweet     = JSON.parse(json)
+              tweet = client.status($2)
+              user = tweet.user.screen_name
+              text = CGI.unescapeHTML(tweet.text)
+              time_abs = tweet.created_at
+              time = time_ago_in_words(Time.now, time_abs)
 
-              unescaped = CGI.unescapeHTML(tweet['text'])
-              time      = Time.parse(tweet['created_at']).strftime('%T on %D')
-
-              m.reply "@#{user}: #{unescaped} (at #{time})"
+              m.reply "@#{user}: #{text} (#{time} ago)"
             else
               m.reply "#{title} (at #{uri.host})"
             end
+          when 'www.amazon.com'
+            ASIN::Configuration.configure do |config|
+                config.secret           = "#{Furbot::Config::GLOBAL_VARS[:amzn_secret]}"
+                config.key              = "#{Furbot::Config::GLOBAL_VARS[:amzn_key]}"
+                config.associate_tag    = "#{Furbot::Config::GLOBAL_VARS[:amzn_associate_tag]}"
+            end
+            asin = link.scan(/http:\/\/(?:www\.|)amazon\.com\/(?:gp\/product|[^\/]+\/dp|dp)\/([^\/]+)/)
+            client = ASIN::Client.instance
+            items = client.lookup asin
+            title = items.first.item_attributes.title
+            price = items.first.offer_summary.lowest_new_price.formatted_price
+            price_cur = items.first.offer_summary.lowest_new_price.currency_code
+
+            m.reply "Amazon: #{title} (#{price} #{price_cur})"
           else
             m.reply "#{title} (at #{uri.host})"
           end
