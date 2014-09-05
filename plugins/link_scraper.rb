@@ -120,10 +120,11 @@ module Cinch
             end
             asin = link.scan(/http:\/\/(?:www\.|)amazon\.com\/(?:gp\/product|[^\/]+\/dp|dp)\/([^\/]+)/)
             client = ASIN::Client.instance
-            items = client.lookup asin
-            title = items.first.item_attributes.title
-            price = items.first.offer_summary.lowest_new_price.formatted_price
-            price_cur = items.first.offer_summary.lowest_new_price.currency_code
+            items = client.lookup(asin, :ResponseGroup => [:Medium, :Offers])
+            item = items.first
+            title = item.item_attributes.title
+            price = item.offers.offer.offer_listing.price.formatted_price
+            price_cur = item.offers.offer.offer_listing.price.currency_code
 
             m.reply "Amazon: #{title} (#{price} #{price_cur})"
           else
