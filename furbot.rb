@@ -31,7 +31,7 @@ bot = Cinch::Bot.new do
     on :message, "woo woo woo" do |m|
         m.reply "#{m.user.nick}: you know it"
     end
-    on :message, /^(9000)$/i do |m|
+    on :message, /.*(^|[\s\t\r\n\f])(9000)([\s\t\r\n\f]|$).*/i do |m|
         m.reply "IT'S OVER 9000!!!!!!!!! https://www.youtube.com/watch?v=SiMHTK15Pik"
     end
     on :message, "\u0001ACTION flips tables\u0001" do |m|
