@@ -112,13 +112,13 @@ module Cinch
             else
               m.reply "#{title} (at #{uri.host})"
             end
-          when 'www.amazon.com'
+          when 'www.amazon.com', 'smile.amazon.com'
             ASIN::Configuration.configure do |config|
                 config.secret           = "#{Furbot::Config::GLOBAL_VARS[:amzn_secret]}"
                 config.key              = "#{Furbot::Config::GLOBAL_VARS[:amzn_key]}"
                 config.associate_tag    = "#{Furbot::Config::GLOBAL_VARS[:amzn_associate_tag]}"
             end
-            asin = link.scan(/http:\/\/(?:www\.|)amazon\.com\/(?:gp\/product|[^\/]+\/dp|dp)\/([^\/]+)/)
+            asin = link.scan(/http:\/\/(?:(www|smile)\.|)amazon\.com\/(?:gp\/product|[^\/]+\/dp|dp)\/([^\/]+)/)
             client = ASIN::Client.instance
             items = client.lookup(asin, :ResponseGroup => [:Medium, :Offers])
             item = items.first
